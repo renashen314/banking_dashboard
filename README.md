@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+## Study notes
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Nextjs 14
+#### :question: What kind of components need to be client components, and what need to be server components?
+- Client components: Where the component need to process interactions, like event listeners or key board actions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+:exclamation: Anything related to data security CANNOT be client commpnent(e.g. user auth functions, API tokens).
+- Server components: 
+#### :question: How to create layouts for different workflow?
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Form 
+#### :question: What's a good way to reuse form schema?
+By creating a type object in util file
+#### :question: How to reuse form for sign-in and sign-up routes?
+#### :question: Why do we use `authFormSchema` as a function instead of a zod object?
+#### :question: Submit handler: why use arrow function instead of regular function?
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Server action and mutation

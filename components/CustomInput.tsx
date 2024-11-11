@@ -10,10 +10,16 @@ interface CustomInput {
   name: FieldPath<z.infer<typeof formSchema>>;
   label: string;
   placeholder: string;
-  password: boolean
+  password: boolean;
 }
-const formSchema = authFormSchema('sign-up');
-const CustomInput = ({ control, name, label, placeholder, password }: CustomInput) => {
+const formSchema = authFormSchema("sign-up");
+const CustomInput = ({
+  control,
+  name,
+  label,
+  placeholder,
+  password,
+}: CustomInput) => {
   return (
     <FormField
       control={control}
