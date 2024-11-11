@@ -6,13 +6,13 @@ import { z } from "zod";
 import { authFormSchema } from "@/lib/utils";
 
 interface CustomInput {
-  control: Control<z.infer<typeof authFormSchema>>;
-  name: FieldPath<z.infer<typeof authFormSchema>>;
+  control: Control<z.infer<typeof formSchema>>;
+  name: FieldPath<z.infer<typeof formSchema>>;
   label: string;
   placeholder: string;
   password: boolean
 }
-
+const formSchema = authFormSchema('sign-up');
 const CustomInput = ({ control, name, label, placeholder, password }: CustomInput) => {
   return (
     <FormField
