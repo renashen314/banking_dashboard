@@ -22,7 +22,7 @@ import CustomInput from "./CustomInput";
 import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { signIn, signUp } from "@/lib/actions/user.actions";
+import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -58,19 +58,20 @@ const AuthForm = ({ type }: { type: string }) => {
           dateOfBirth: data.dateOfBirth!,
           ssn: data.ssn!,
           email: data.email,
-          password: data.password
-        }
+          password: data.password,
+        };
 
         const newUser = await signUp(userData);
         setUser(newUser);
       }
       if (type === "sign-in") {
-        // const response = await signIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
+        console.log("break");
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        });
 
-        // if (response) router.push("/");
+        if (response) router.push("/");
       }
     } catch (error) {
       console.log(error);
@@ -190,6 +191,7 @@ const AuthForm = ({ type }: { type: string }) => {
                 placeholder="Enter your password"
                 password={true}
               />
+
               <CustomInput
                 control={form.control}
                 name="confirmPassword"
@@ -205,13 +207,16 @@ const AuthForm = ({ type }: { type: string }) => {
                       <Loader2 size={20} className="animate-spin" /> &nbsp;
                       Loading...
                     </>
-                  ) : type === "sign-in" ? "Sign In" : "Sign Up"
-                  }
+                  ) : type === "sign-in" ? (
+                    "Sign In"
+                  ) : (
+                    "Sign Up"
+                  )}
                 </Button>
               </div>
             </form>
           </Form>
-          
+
           <footer className="flex justify-center gap-1">
             <p className="text-14 font-normal text-gray-600">
               {type === "sign-in"

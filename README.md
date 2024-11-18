@@ -23,6 +23,8 @@ By creating a type object in util file
 
 ### Server action and mutation
 #### :question: Server Side Rendering(SSR) and Client Side Rendering
+#### In user actions, why do we need to use parseStringyfy function on user object?
+#### Describe how login and logout is acheived in browser
 
 ### Class Variance Authority (CVA)
 
