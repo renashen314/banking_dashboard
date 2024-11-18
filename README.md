@@ -22,3 +22,10 @@ By creating a type object in util file
 #### :question: Submit handler: why use arrow function instead of regular function?
 
 ### Server action and mutation
+#### :question: Server Side Rendering(SSR) and Client Side Rendering
+
+### Class Variance Authority (CVA)
+
+
+### Plaid ralated
+#### What is Dowalla
