@@ -1,16 +1,39 @@
 "use server";
 
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
 
+export const getUserInfo = async ({ userId }: getUserInfoProps) => {
+try {
+    const { database } = await createAdminClient()
+
+    const user = await database.listDocuments(
+        process.env.APPWRITE_DATABASE_ID!,
+        process.env.APPWRITE_USER_COLLECTION_ID!,
+        [Query.equal('useriD', [userId])]
+    )
+
+    return parseStringify(user.documents[0])
+    
+} catch (error) {
+    console.error(error)
+}
+}
 export const signIn = async ({ email, password }: signInProps) => {
   try {
     const { account } = await createAdminClient();
-    const response = await account.createEmailPasswordSession(email, password);
+    const session = await account.createEmailPasswordSession(email, password);
+    cookies().set("appwrite-session", session.secret, {
+        path: "/",
+        httpOnly: true,
+        sameSite: "strict",
+        secure: true,
+      });
+    const user = getUserInfo({ userId: session.userId })
 
-    return parseStringify(response);
+    return parseStringify(user);
 
   } catch (error) {
     console.error("Error", error);
@@ -65,6 +88,7 @@ export const logoutAccount = async () => {
 
         await account.deleteSession('current')
     } catch (error) {
-        return(error)
+        console.error(error)
+        return(null)
     }
 }

@@ -199,8 +199,8 @@ export const authFormSchema = (type) => z
   .object({
     email: z.string().email(),
     password: z.string().min(8),
-    confirmPassword: z.string(),
 
+    // confirmPassword: type === 'sign-in' ? z.string().optional() : z.string(),
     firstName: type === 'sign-in' ? z.string().optional() : z.string(),
     lastName: type === 'sign-in' ? z.string().optional() : z.string(),
     address1: type === 'sign-in' ? z.string().optional() : z.string(),
@@ -210,9 +210,9 @@ export const authFormSchema = (type) => z
     dateOfBirth: type === 'sign-in' ? z.string().optional() : z.string(),
     ssn: type === 'sign-in' ? z.string().optional() : z.string(),
   })
-  .refine(
-    (values) => {
-      return values.password === values.confirmPassword;
-    },
-    { message: "Passwords must match!", path: ["confirmPassword"] }
-  );
+  // .refine(
+  //   (values) => {
+  //     return values.password === values.confirmPassword;
+  //   },
+  //   { message: "Passwords must match!", path: ["confirmPassword"] }
+  // );

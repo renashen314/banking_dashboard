@@ -37,7 +37,7 @@ const AuthForm = ({ type }: { type: string }) => {
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",
+      // confirmPassword: "",
     },
   });
 
@@ -65,13 +65,14 @@ const AuthForm = ({ type }: { type: string }) => {
         setUser(newUser);
       }
       if (type === "sign-in") {
-        console.log("break");
+        // console.log("break");
         const response = await signIn({
           email: data.email,
           password: data.password,
         });
 
         if (response) router.push("/");
+        console.log(`logged in: ${response}`)
       }
     } catch (error) {
       console.log(error);
@@ -192,13 +193,13 @@ const AuthForm = ({ type }: { type: string }) => {
                 password={true}
               />
 
-              <CustomInput
+              {/* <CustomInput
                 control={form.control}
                 name="confirmPassword"
                 label="Confirm Password"
                 placeholder="Confirm your password"
                 password={true}
-              />
+              /> */}
 
               <div className="flex flex-col gap-4">
                 <Button type="submit" disabled={isLoading} className="form-btn">
