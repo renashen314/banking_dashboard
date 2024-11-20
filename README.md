@@ -26,6 +26,9 @@ By creating a type object in util file
 #### In user actions, why do we need to use parseStringyfy function on user object?
 #### Describe how login and logout is acheived in browser
 #### How to use aysnc functions in useEffect?
+#### User being a session vs. user being an object
+#### Benefit of atomic functions
+Has to work all the way, or fail if the action is incompleted
 
 ### Class Variance Authority (CVA)
 
