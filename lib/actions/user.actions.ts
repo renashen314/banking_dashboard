@@ -27,7 +27,7 @@ export const getUserInfo = async ({ userId }: getUserInfoProps) => {
     const user = await database.listDocuments(
       process.env.APPWRITE_DATABASE_ID!,
       process.env.APPWRITE_USER_COLLECTION_ID!,
-      [Query.equal("useriD", [userId])]
+      [Query.equal("userId", [userId])]
     );
 
     return parseStringify(user.documents[0]);
@@ -53,8 +53,8 @@ export const signIn = async ({ email, password }: signInProps) => {
   }
 };
 
-export const signUp = async (userData: SignUpParams) => {
-  const { email, password, firstName, lastName } = userData;
+export const signUp = async ({ password, ...userData }: SignUpParams) => {
+  const { email, firstName, lastName } = userData;
 
   let newUserAccount;
   try {
@@ -97,7 +97,6 @@ export const signUp = async (userData: SignUpParams) => {
     });
 
     return parseStringify(newUser);
-
   } catch (error) {
     console.error("Error", error);
   }
@@ -134,7 +133,7 @@ export const createLinkToken = async (user: User) => {
       user: {
         client_user_id: user.$id,
       },
-      client_name: user.name,
+      client_name: `${user.firstName} ${user.lastName}`,
       products: ["auth"] as Products[],
       language: "en",
       country_codes: ["US"] as CountryCode[],
@@ -148,7 +147,7 @@ export const createLinkToken = async (user: User) => {
 };
 
 export const createBankAccount = async ({
-  userID,
+  userId,
   bankId,
   accountId,
   accessToken,
@@ -162,7 +161,7 @@ export const createBankAccount = async ({
       BANK_COLLECTION_ID!,
       ID.unique(),
       {
-        userID,
+        userId,
         bankId,
         accountId,
         accessToken,
@@ -213,7 +212,7 @@ export const exchangePublicToken = async ({
 
     // create bank account
     await createBankAccount({
-      userID: user.$id,
+      userId: user.$id,
       bankId: itemId,
       accountId: accountData.account_id,
       accessToken,
