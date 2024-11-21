@@ -57,6 +57,7 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
   const { email, firstName, lastName } = userData;
 
   let newUserAccount;
+
   try {
     const { account, database } = await createAdminClient();
 
@@ -66,6 +67,7 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       password,
       `${firstName} ${lastName}`
     );
+
     if (!newUserAccount) throw new Error("Error creating user");
 
     const dwollaCustomerUrl = await createDwollaCustomer({
@@ -74,6 +76,7 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
     });
 
     if (!dwollaCustomerUrl) throw new Error("Error creating Dwolla customer");
+
     const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
 
     const newUser = await database.createDocument(
@@ -87,6 +90,7 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
         dwollaCustomerUrl,
       }
     );
+
     const session = await account.createEmailPasswordSession(email, password);
 
     cookies().set("appwrite-session", session.secret, {
@@ -156,6 +160,7 @@ export const createBankAccount = async ({
 }: createBankAccountProps) => {
   try {
     const { database } = await createAdminClient();
+
     const bankAcount = await database.createDocument(
       DATABASE_ID!,
       BANK_COLLECTION_ID!,
@@ -169,6 +174,7 @@ export const createBankAccount = async ({
         shareableId,
       }
     );
+
     return parseStringify(bankAcount);
   } catch (error) {
     console.error(error);
@@ -204,7 +210,7 @@ export const exchangePublicToken = async ({
 
     // create a funding source URL for the account using the Dwolla customer ID, processor token, and bank name
     const fundingSourceUrl = await addFundingSource({
-      dwollaCustimerId: user.dwollaCustomerId,
+      dwollaCustomerId: user.dwollaCustomerId,
       processorToken,
       bankName: accountData.name,
     });
