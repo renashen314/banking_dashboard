@@ -79,7 +79,7 @@ declare type Transaction = {
   type: string;
   $createdAt: string;
   channel: string;
-  senderBankId: string;
+  senderBankId?: string;
   receiverBankId: string;
 };
 

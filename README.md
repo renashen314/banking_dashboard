@@ -1,3 +1,5 @@
+## Known bugs
+- Transactions not showing
 ## Getting Started
 
 ```bash
